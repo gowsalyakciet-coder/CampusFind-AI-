@@ -1,0 +1,6 @@
+{
+  "name": "CampusFind AI – Campus Lost and Found System",
+  "description": "AI-powered lost and found recovery platform for college campuses. Report lost and found laptops, mobile phones, and iPhones with smart matching and verified claims.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

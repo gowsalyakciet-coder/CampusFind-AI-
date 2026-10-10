@@ -1,0 +1,133 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Student or Administrator campus account",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 150 },
+        "department": { "type": "string", "maxLength": 100 },
+        "year": { "type": "string", "maxLength": 50 },
+        "role": { "type": "string", "enum": ["student", "admin"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "department", "year", "role", "createdAt"]
+    },
+    "ItemReport": {
+      "title": "ItemReport",
+      "description": "Report of a lost or found campus item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["lost", "found"] },
+        "category": { "type": "string", "enum": ["ID Card", "Laptop", "Mobile Phone", "iPhone"] },
+        "title": { "type": "string", "maxLength": 150 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "brand": { "type": "string", "maxLength": 80 },
+        "model": { "type": "string", "maxLength": 80 },
+        "color": { "type": "string", "maxLength": 50 },
+        "identifyingFeatures": { "type": "string", "maxLength": 500 },
+        "campusLocation": { "type": "string", "maxLength": 150 },
+        "date": { "type": "string" },
+        "timeApprox": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "reportedByUserId": { "type": "string" },
+        "reporterName": { "type": "string" },
+        "reporterEmail": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["Open", "Potential Match", "Claim Pending", "Approved", "Returned", "Rejected"]
+        },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "type", "category", "title", "description", "color", "campusLocation", "date", "reportedByUserId", "status"]
+    },
+    "MatchRecord": {
+      "title": "MatchRecord",
+      "description": "Computed compatibility between lost and found items",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "lostItemId": { "type": "string" },
+        "foundItemId": { "type": "string" },
+        "category": { "type": "string", "enum": ["ID Card", "Laptop", "Mobile Phone", "iPhone"] },
+        "score": { "type": "number" },
+        "matchConfidence": { "type": "string", "enum": ["High", "Medium", "Low"] },
+        "matchEngine": { "type": "string" },
+        "reasoning": { "type": "string" },
+        "status": { "type": "string", "enum": ["Unreviewed", "Claim Initiated", "Confirmed", "Dismissed"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "lostItemId", "foundItemId", "category", "score", "matchConfidence", "matchEngine", "status"]
+    },
+    "ClaimRecord": {
+      "title": "ClaimRecord",
+      "description": "Student ownership claim for a found item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "itemId": { "type": "string" },
+        "itemTitle": { "type": "string" },
+        "category": { "type": "string", "enum": ["ID Card", "Laptop", "Mobile Phone", "iPhone"] },
+        "claimedByUserId": { "type": "string" },
+        "claimantName": { "type": "string" },
+        "claimantEmail": { "type": "string" },
+        "claimantDepartment": { "type": "string" },
+        "claimantYear": { "type": "string" },
+        "verificationProof": { "type": "string", "maxLength": 1000 },
+        "serialOrIdentifierProof": { "type": "string", "maxLength": 200 },
+        "status": { "type": "string", "enum": ["Claim Pending", "Approved", "Returned", "Rejected"] },
+        "adminNotes": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "itemId", "itemTitle", "category", "claimedByUserId", "claimantName", "claimantEmail", "verificationProof", "status"]
+    },
+    "NotificationItem": {
+      "title": "NotificationItem",
+      "description": "In-app alert for user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string", "maxLength": 150 },
+        "message": { "type": "string", "maxLength": 500 },
+        "type": { "type": "string", "enum": ["match", "claim_update", "item_update", "admin_alert"] },
+        "read": { "type": "boolean" },
+        "linkType": { "type": "string" },
+        "linkId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "message", "type", "read", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Student and administrator profiles"
+    },
+    "/lostItems/{itemId}": {
+      "schema": { "$ref": "#/entities/ItemReport" },
+      "description": "Campus lost item reports"
+    },
+    "/foundItems/{itemId}": {
+      "schema": { "$ref": "#/entities/ItemReport" },
+      "description": "Campus found item reports"
+    },
+    "/matches/{matchId}": {
+      "schema": { "$ref": "#/entities/MatchRecord" },
+      "description": "Potential matching pairs generated by AI and rule engines"
+    },
+    "/claims/{claimId}": {
+      "schema": { "$ref": "#/entities/ClaimRecord" },
+      "description": "Ownership claims filed by students"
+    },
+    "/notifications/{notifId}": {
+      "schema": { "$ref": "#/entities/NotificationItem" },
+      "description": "Student match and claim notifications"
+    }
+  }
+}

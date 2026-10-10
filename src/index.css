@@ -1,0 +1,352 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   CampusFind AI - Human Design System CSS
+   Inspired by Apple Human Interface Guidelines, Material You, & Warm Editorial Web.
+   Focuses on:
+   - Tactile, physical paper/surface physics with layered natural shadows
+   - Calm, warm neutral background (#F8FAFC / #FBFBFD) with warm slate charcoal (#0F172A)
+   - Zero AI-slop: unboxed typographic metadata, no gratuitous neon capsules
+   - Ergonomic button padding (horizontal ≈ 2x vertical) & micro-press feedback
+   - High-contrast accessibility (WCAG AA) & visible focus rings
+   - Living Radar pulse & beacon animations for device location finding
+   ========================================================================== */
+
+:root {
+  /* Surface & Canvas */
+  --human-canvas: #f8fafc;
+  --human-surface: #ffffff;
+  --human-surface-warm: #fafaf9;
+  --human-surface-muted: #f1f5f9;
+
+  /* Human Typography Palette */
+  --human-text-primary: #0f172a;
+  --human-text-secondary: #334155;
+  --human-text-muted: #64748b;
+  --human-text-faint: #94a3b8;
+
+  /* Primary Brand (Refined Academic Navy & Royal) */
+  --human-brand: #1d4ed8;
+  --human-brand-hover: #1e40af;
+  --human-brand-subtle: #eff6ff;
+  --human-brand-border: #bfdbfe;
+
+  /* Semantic Accents */
+  --human-emerald: #059669;
+  --human-emerald-subtle: #ecfdf5;
+  --human-rose: #e11d48;
+  --human-rose-subtle: #fff1f2;
+  --human-amber: #d97706;
+  --human-amber-subtle: #fffbeb;
+
+  /* Borders & Dividers */
+  --human-border: #e2e8f0;
+  --human-border-subtle: #f1f5f9;
+  --human-border-strong: #cbd5e1;
+
+  /* Natural Layered Shadows (Mimics paper on wooden/clean surface) */
+  --human-shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --human-shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05);
+  --human-shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --human-shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.07), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --human-shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  --human-shadow-radar: 0 0 24px rgba(37, 99, 235, 0.25);
+}
+
+/* Base Body & Layout Defaults */
+body {
+  background-color: var(--human-canvas);
+  color: var(--human-text-primary);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* Human Focus Visible Rings */
+:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Smooth Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+  background-clip: content-box;
+}
+
+/* ==========================================================================
+   Human Card & Surface Components
+   ========================================================================== */
+.human-card {
+  background-color: #ffffff;
+  border: 1px solid var(--human-border);
+  border-radius: 1.25rem;
+  box-shadow: var(--human-shadow-sm);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.18s ease;
+}
+
+.human-card-interactive {
+  cursor: pointer;
+}
+
+.human-card-interactive:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: var(--human-shadow-md);
+}
+
+.human-card-interactive:active {
+  transform: translateY(0px) scale(0.995);
+}
+
+/* Human Panel (for grouped sections) */
+.human-panel {
+  background-color: #ffffff;
+  border: 1px solid var(--human-border);
+  border-radius: 1.5rem;
+  box-shadow: var(--human-shadow-xs);
+  padding: 1.5rem;
+}
+
+/* ==========================================================================
+   Human Buttons - Tactile ergonomics with micro-press scale
+   ========================================================================== */
+.human-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 0.75rem;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: 1px solid #1d4ed8;
+  box-shadow: 0 1px 2px 0 rgba(37, 99, 235, 0.2);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.human-btn-primary:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 4px 12px 0 rgba(37, 99, 235, 0.3);
+  transform: translateY(-1px);
+}
+
+.human-btn-primary:active {
+  transform: translateY(0px) scale(0.98);
+}
+
+.human-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 0.75rem;
+  background-color: #ffffff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  box-shadow: var(--human-shadow-xs);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.human-btn-secondary:hover {
+  background-color: #f8fafc;
+  color: #0f172a;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+.human-btn-secondary:active {
+  transform: translateY(0px) scale(0.98);
+}
+
+/* Danger Tactile Button */
+.human-btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 0.75rem;
+  background-color: #e11d48;
+  color: #ffffff;
+  border: 1px solid #be123c;
+  box-shadow: 0 1px 2px 0 rgba(225, 29, 72, 0.2);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.human-btn-danger:hover {
+  background-color: #be123c;
+  box-shadow: 0 4px 12px 0 rgba(225, 29, 72, 0.3);
+  transform: translateY(-1px);
+}
+
+.human-btn-danger:active {
+  transform: translateY(0px) scale(0.98);
+}
+
+/* ==========================================================================
+   Human Form Controls
+   ========================================================================== */
+.human-input,
+.human-select,
+.human-textarea {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: #0f172a;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.human-input:focus,
+.human-select:focus,
+.human-textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  outline: none;
+}
+
+.human-input::placeholder,
+.human-textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   Zero-Pill Typographic Metadata Classes (Anti-AI Slop)
+   ========================================================================== */
+.human-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.human-meta-divider::before {
+  content: "·";
+  margin: 0 0.125rem;
+  color: #cbd5e1;
+  font-weight: 700;
+}
+
+/* Tasteful Status Indicator (Dot + Clean Text) */
+.human-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.human-dot-active {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: #059669;
+}
+
+.human-dot-pending {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: #d97706;
+}
+
+.human-dot-open {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: #2563eb;
+}
+
+.human-dot-returned {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: #10b981;
+}
+
+/* ==========================================================================
+   Live Radar & Device Locator Animations (Location ON)
+   ========================================================================== */
+@keyframes radar-sweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes beacon-ripple {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes signal-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.9);
+  }
+}
+
+.animate-radar-sweep {
+  animation: radar-sweep 4s linear infinite;
+  transform-origin: center center;
+}
+
+.animate-beacon-ripple {
+  animation: beacon-ripple 2.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.animate-signal-glow {
+  animation: signal-glow 2s ease-in-out infinite;
+}
